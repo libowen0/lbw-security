@@ -3,6 +3,7 @@ package com.lbw.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.lbw.domain.User;
 import com.lbw.domain.UserQueryCondition;
+import com.lbw.exception.UserNotExistException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
@@ -55,17 +56,21 @@ public class UserController {
   @GetMapping("/{id:\\d+}")
   @JsonView(User.UserDetailView.class)
   public User getInfo(@PathVariable String id){
-    User user = new User();
-    user.setUsername("xdd1");
-    return user;
+
+    throw  new UserNotExistException("user not exist");
+
+//    User user = new User();
+//    user.setUsername("xdd1");
+//    return user;
   }
 
   @PostMapping
-  public User create(@Valid @RequestBody User user, BindingResult errors){
+//  public User create(@Valid @RequestBody User user, BindingResult errors){
+  public User create(@Valid @RequestBody User user){
 
-    if(errors.hasErrors()){
-      errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
-    }
+//    if(errors.hasErrors()){
+//      errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
+//    }
 
     System.out.println(user.getId());
     System.out.println(user.getAge());
