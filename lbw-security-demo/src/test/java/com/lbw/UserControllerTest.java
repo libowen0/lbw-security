@@ -1,7 +1,9 @@
 package com.lbw;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -70,11 +72,29 @@ public class UserControllerTest {
   public void whenCreateSuccess() throws Exception {
     Date date = new Date();
     System.out.println(date.getTime());
-    String content = "{\"username\":\"xdd1\",\"age\":null," + "\"birthday\":"+date.getTime()+"}";
+    String content = "{\"username\":null,\"age\":null," + "\"birthday\":"+date.getTime()+"}";
     String result = mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(content))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(1)).andReturn().getResponse().getContentAsString();
     System.out.println(result);
+  }
+
+  @Test
+  public void whenCreateUpdate() throws Exception {
+    Date date = new Date();
+    System.out.println(date.getTime());
+    String content = "{\"username\":null,\"age\":null," + "\"birthday\":"+date.getTime()+"}";
+    String result = mockMvc.perform(put("/user").contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(content))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(1)).andReturn().getResponse().getContentAsString();
+    System.out.println(result);
+  }
+
+  @Test
+  public void whenCreateDelete() throws Exception {
+    mockMvc.perform(delete("/user/1").contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(status().isOk());
   }
 }

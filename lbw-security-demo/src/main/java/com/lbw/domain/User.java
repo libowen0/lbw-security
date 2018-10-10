@@ -1,7 +1,10 @@
 package com.lbw.domain;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.lbw.validate.MyConstraint;
 import java.util.Date;
+import javax.validation.Constraint;
+import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -18,7 +21,11 @@ public class User {
   private Long id;
 
   @JsonView(UserSimpleView.class)
+  @NotBlank(message = "用户名不能为空")
   private String username;
+
+
+  @MyConstraint(message = "这是一个测试")
   @JsonView(UserDetailView.class)
   private Integer age;
 

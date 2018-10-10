@@ -5,11 +5,15 @@ import com.lbw.domain.User;
 import com.lbw.domain.UserQueryCondition;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,7 +61,12 @@ public class UserController {
   }
 
   @PostMapping
-  public User create(@RequestBody User user){
+  public User create(@Valid @RequestBody User user, BindingResult errors){
+
+    if(errors.hasErrors()){
+      errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
+    }
+
     System.out.println(user.getId());
     System.out.println(user.getAge());
     System.out.println(user.getUsername());
@@ -66,5 +75,23 @@ public class UserController {
     return user;
   }
 
+  @PutMapping
+  public User update(@Valid @RequestBody User user, BindingResult errors){
 
+    if(errors.hasErrors()){
+      errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
+    }
+
+    System.out.println(user.getId());
+    System.out.println(user.getAge());
+    System.out.println(user.getUsername());
+    System.out.println(user.getBirthday());
+    user.setId(1L);
+    return user;
+  }
+
+  @DeleteMapping("/{id:\\d+}")
+  public void delete(@PathVariable String id){
+    System.out.println(id);
+  }
 }
