@@ -25,7 +25,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.lbw.security</groupId>
+      <groupId>com.lbw</groupId>
       <artifactId>lbw-security-browser</artifactId>
       <version>${lbw.security.version}</version>
     </dependency>

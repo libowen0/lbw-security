@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <lbw.security.version>1.0.0-SNAPSHOT</lbw.security.version>
+    <lbw.security.version>1.0-SNAPSHOT</lbw.security.version>
   </properties>
 
   <parent>
