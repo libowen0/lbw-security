@@ -1,9 +1,11 @@
 package com.lbw;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,5 +64,17 @@ public class UserControllerTest {
   public void whenGenInfoFail() throws Exception {
     mockMvc.perform(get("/user/a").contentType(MediaType.APPLICATION_JSON_UTF8)
     ).andExpect(status().is4xxClientError());
+  }
+
+  @Test
+  public void whenCreateSuccess() throws Exception {
+    Date date = new Date();
+    System.out.println(date.getTime());
+    String content = "{\"username\":\"xdd1\",\"age\":null," + "\"birthday\":"+date.getTime()+"}";
+    String result = mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(content))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(1)).andReturn().getResponse().getContentAsString();
+    System.out.println(result);
   }
 }
