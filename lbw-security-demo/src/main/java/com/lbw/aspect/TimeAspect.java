@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
  * Author by lbw , Date on 2018/10/10.
  */
 
-
-@Aspect
-@Component
+//
+//@Aspect
+//@Component
 public class TimeAspect {
 
   @Around("execution(* com.lbw.controller.UserController.*(..))")

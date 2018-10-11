@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -24,10 +25,10 @@ public class WebConfig implements WebMvcConfigurer {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(timeIntercepter);
+//    registry.addInterceptor(timeIntercepter);
   }
 
-  @Bean
+//  @Bean
   public FilterRegistrationBean timeFilter(){
     FilterRegistrationBean registrationBean = new FilterRegistrationBean();
     TimeFilter timeFilter = new TimeFilter();
@@ -38,6 +39,12 @@ public class WebConfig implements WebMvcConfigurer {
     registrationBean.setUrlPatterns(urls);
     return registrationBean;
   }
+
+//  可以配置 线程相关内容
+//  @Override
+//  public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+//    configurer.setTaskExecutor();
+//  }
 }
 
 
