@@ -1,8 +1,12 @@
 package com.lbw;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Author by lbw , Date on 2018/10/11.
@@ -11,14 +15,32 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
+  @Autowired
+  SecurityProperties securityProperties;
+
+  //  加盐加密 防止破解密码相同的账户
+  @Bean
+  PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.formLogin()
 //    http.httpBasic()
+    http.formLogin()
+//        .loginPage("/signIn.html")
+//        由请求来确定返回自定义页面
+        .loginPage("/authentication/require")
+//        默认是/login
+        .loginProcessingUrl("/authentication/form")
         .and()
         .authorizeRequests()
+        .antMatchers("/signIn.html","/authentication/require","/authentication/signln.html",securityProperties.getBrowser().getLoginPage()).permitAll()
         .anyRequest()
-        .authenticated();
+        .authenticated()
+        .and()
+        .csrf().disable();
+
 //    Spring security 基于过滤器链，先后依次调用
 //    UsernamePasswordAuthenticationFiler 处理表单登陆
 //    BasicAuthenticationFilter  处理basic登陆

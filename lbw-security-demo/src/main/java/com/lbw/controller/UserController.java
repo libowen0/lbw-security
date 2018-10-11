@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
-  @GetMapping("/")
+  @GetMapping
   @JsonView(User.UserSimpleView.class)
   @ApiOperation(value = "用户列表查询")
   public List<User> query(UserQueryCondition username,@PageableDefault(sort = "username,desc") Pageable pageable){

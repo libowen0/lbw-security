@@ -16,3 +16,9 @@ spring:
 # 解决 NumberFormatException
 logging:
   level.io.swagger.models.parameters.AbstractSerializableParameter: error
+
+
+#lbw:
+#  security:
+#    browser:
+#      loginPage: /demo-signIn.html
