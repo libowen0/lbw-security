@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.lbw.domain.User;
 import com.lbw.domain.UserQueryCondition;
 import com.lbw.exception.UserNotExistException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
@@ -30,6 +32,7 @@ public class UserController {
 
   @GetMapping("/")
   @JsonView(User.UserSimpleView.class)
+  @ApiOperation(value = "用户列表查询")
   public List<User> query(UserQueryCondition username,@PageableDefault(sort = "username,desc") Pageable pageable){
 //  public List<User> query(@RequestParam(required = false,defaultValue = "tom") String username){
 
@@ -53,9 +56,9 @@ public class UserController {
     return users;
   }
 
-  @GetMapping("/{id:\\d+}")
+  @GetMapping("/{id}")
   @JsonView(User.UserDetailView.class)
-  public User getInfo(@PathVariable String id){
+  public User getInfo(@ApiParam(value = "用户id") @PathVariable Integer id){
 
 //    throw  new RuntimeException("user not exist");
     System.out.println("进入getInfo服务");
@@ -95,8 +98,8 @@ public class UserController {
     return user;
   }
 
-  @DeleteMapping("/{id:\\d+}")
-  public void delete(@PathVariable String id){
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable Integer id){
     System.out.println(id);
   }
 }

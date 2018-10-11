@@ -12,3 +12,7 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: true
+
+# 解决 NumberFormatException
+logging:
+  level.io.swagger.models.parameters.AbstractSerializableParameter: error
