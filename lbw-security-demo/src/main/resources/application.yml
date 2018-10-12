@@ -18,7 +18,8 @@ logging:
   level.io.swagger.models.parameters.AbstractSerializableParameter: error
 
 
-#lbw:
-#  security:
-#    browser:
+lbw:
+  security:
+    browser:
+      loginType: REDIRECT
 #      loginPage: /demo-signIn.html

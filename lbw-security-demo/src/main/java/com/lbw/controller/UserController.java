@@ -1,6 +1,7 @@
 package com.lbw.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lbw.domain.User;
 import com.lbw.domain.UserQueryCondition;
 import com.lbw.exception.UserNotExistException;
@@ -9,8 +10,13 @@ import io.swagger.annotations.ApiParam;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +35,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+  @GetMapping("/me")
+  public Object getCurrentUser(@AuthenticationPrincipal UserDetails userDetails){
+    return userDetails;
+  }
 
   @GetMapping
   @JsonView(User.UserSimpleView.class)

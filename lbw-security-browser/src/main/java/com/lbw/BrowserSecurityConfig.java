@@ -18,6 +18,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   SecurityProperties securityProperties;
 
+  @Autowired
+  private SuccessHandler successHandler;
+
+  @Autowired
+  private FailureHandler failureHandler;
+
   //  加盐加密 防止破解密码相同的账户
   @Bean
   PasswordEncoder passwordEncoder() {
@@ -28,11 +34,18 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 //    http.httpBasic()
     http.formLogin()
+//        自定义登陆页面
 //        .loginPage("/signIn.html")
+
+
 //        由请求来确定返回自定义页面
         .loginPage("/authentication/require")
 //        默认是/login
         .loginProcessingUrl("/authentication/form")
+//        自定义登陆成功处理 实现AuthenticationSuccessHandler
+        .successHandler(successHandler)
+//        自定义登陆失败处理 实现AUthenticationFailureHandler
+        .failureHandler(failureHandler)
         .and()
         .authorizeRequests()
         .antMatchers("/signIn.html","/authentication/require","/authentication/signln.html",securityProperties.getBrowser().getLoginPage()).permitAll()
@@ -41,11 +54,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .csrf().disable();
 
-//    api安全方式
-//    1. 访问api FilterSecurityInterceptor 拦截未认证，抛出异常
-//    2. ExceptionTranslationFilter 捕获异常 并跳转到/login
-//    3. 正确填写表单，由UsernamePasswordAuthenticationFiler来进行认证
-//    4. 认证通过，调用FilterSecurityInterceptor来放行api
-//    5. 访问controller方法
+
   }
 }

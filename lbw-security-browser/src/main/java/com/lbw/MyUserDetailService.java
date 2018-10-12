@@ -24,8 +24,8 @@ public class MyUserDetailService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     // 根据用户名查找用户信息
-    log.info("登陆用户名"+ username);
-    log.info("数据库密码"+ passwordEncoder.encode("123456"));
+//    log.info("登陆用户名"+ username);
+//    log.info("数据库密码"+ passwordEncoder.encode("123456"));
     return new User(username,passwordEncoder.encode("123456"),
         true,true,true,true,
         AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
