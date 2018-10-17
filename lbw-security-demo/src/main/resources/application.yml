@@ -21,5 +21,10 @@ logging:
 lbw:
   security:
     browser:
-      loginType: REDIRECT
+      loginType: JSON
+    code:
+      image:
+        length: 6
+        width: 100
+        url: /user/*
 #      loginPage: /demo-signIn.html

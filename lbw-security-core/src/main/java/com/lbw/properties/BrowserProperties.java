@@ -1,4 +1,4 @@
-package com.lbw;
+package com.lbw.properties;
 
 import lombok.Data;
 

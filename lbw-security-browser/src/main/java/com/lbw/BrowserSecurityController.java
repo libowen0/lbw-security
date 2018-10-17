@@ -1,5 +1,6 @@
 package com.lbw;
 
+import com.lbw.properties.SecurityProperties;
 import com.lbw.support.SimpleResponse;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,6 +1,8 @@
 package com.lbw;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lbw.properties.LoginType;
+import com.lbw.properties.SecurityProperties;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

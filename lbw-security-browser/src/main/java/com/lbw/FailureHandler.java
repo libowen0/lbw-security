@@ -1,6 +1,9 @@
 package com.lbw;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lbw.properties.LoginType;
+import com.lbw.properties.SecurityProperties;
+import com.lbw.support.SimpleResponse;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +37,7 @@ public class FailureHandler extends SimpleUrlAuthenticationFailureHandler {
     if(LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())){
       httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
       httpServletResponse.setContentType("application/json;charset=UTF-8");
-      httpServletResponse.getWriter().write(objectMapper.writeValueAsString(e));
+      httpServletResponse.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(e.getMessage())));
     }else {
       super.onAuthenticationFailure(httpServletRequest,httpServletResponse,e);
     }
