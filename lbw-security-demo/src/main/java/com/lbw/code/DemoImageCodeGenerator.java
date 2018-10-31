@@ -12,7 +12,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 // 以增量的模式来应对变化
 //  实现validateCodeGenerator类 并注入imageCodeGenerator bean
 //  就替换了之前旧逻辑
-@Component("imageCodeGenerator")
+//@Component("imageCodeGenerator")
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
 
   @Override

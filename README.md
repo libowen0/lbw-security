@@ -23,3 +23,6 @@ FilterSecurityInterceptor 依据配置来进行放行api
 //    3. 正确填写表单，由UsernamePasswordAuthenticationFiler来进行认证
 //    4. 认证通过，调用FilterSecurityInterceptor来放行api
 //    5. 访问controller方法
+
+配置优先顺序：
+请求最高，其次配置优先级，最后逻辑

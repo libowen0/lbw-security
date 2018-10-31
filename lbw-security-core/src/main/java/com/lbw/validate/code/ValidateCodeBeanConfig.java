@@ -16,7 +16,7 @@ public class ValidateCodeBeanConfig {
   @Autowired
   private SecurityProperties securityProperties;
 
-//  没有 imageCodeGenerator 才执行以下逻辑
+//  没有 imageCodeGenerator 才执行以下配置
   @Bean
   @ConditionalOnMissingBean(name = "imageCodeGenerator")
   public ValidateCodeGenerator imageCodeGenerator(){

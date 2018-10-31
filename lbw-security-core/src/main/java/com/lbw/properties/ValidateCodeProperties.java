@@ -9,5 +9,6 @@ import lombok.Data;
 @Data
 public class ValidateCodeProperties {
 
+  // 图片验证码校验
   private ImageCodeProperties image = new ImageCodeProperties();
 }

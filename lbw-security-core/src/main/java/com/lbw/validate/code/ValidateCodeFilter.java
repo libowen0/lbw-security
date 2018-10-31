@@ -23,9 +23,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * Author by lbw , Date on 2018/10/12.
  */
 
-// 保证过滤器只会被调一次
+// OncePerRequestFilter 保证过滤器只会被调一次
+// InitializingBean 项目启动时获取urls配置参数
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
+//  需要验证码配置的url
   private Set<String> urls = new HashSet<>();
   private AuthenticationFailureHandler failureHandler;
 
@@ -53,13 +55,13 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     boolean action = false;
     for (String url : urls){
+//      判断url是否在配置项内 是的话校验请求
       if(pathMatcher.match(url,request.getRequestURI())){
         action = true;
       }
     }
 
     if (action) {
-
       try {
         validate(new ServletWebRequest(request));
       } catch (ValidateCodeException e) {
