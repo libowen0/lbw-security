@@ -26,3 +26,10 @@ FilterSecurityInterceptor 依据配置来进行放行api
 
 配置优先顺序：
 请求最高，其次配置优先级，最后逻辑
+
+记住我功能基本原理
+1. 由UsernamePasswordAuthenticationFilter认证成功
+2. 调用RemeberMeService 将Token通过TokenRepository写入数据库 同时写入cookie
+3. 下一次认证的时候调用 RememberMeAuthenticationFiler 读取Cookie中的Token
+4. 通过TokenRepository查找到用户名，调用UserDetailsService 最后将用户信息存入SecurityContext中 
+

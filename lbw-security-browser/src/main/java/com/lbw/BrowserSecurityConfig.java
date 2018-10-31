@@ -2,14 +2,21 @@ package com.lbw;
 
 import com.lbw.properties.SecurityProperties;
 import com.lbw.validate.code.ValidateCodeFilter;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * Author by lbw , Date on 2018/10/11.
@@ -26,6 +33,21 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   private FailureHandler failureHandler;
+
+  @Autowired
+  private DataSource dataSource;
+
+
+  @Autowired
+  private UserDetailsService myUserDetailService;
+
+  @Bean
+  public PersistentTokenRepository persistentTokenRepository(){
+    JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+    tokenRepository.setDataSource(dataSource);
+    tokenRepository.setCreateTableOnStartup(true);
+    return tokenRepository;
+  }
 
   //  加盐加密 防止破解密码相同的账户
   @Bean
@@ -55,6 +77,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         .successHandler(successHandler)
 //        自定义登陆失败处理 实现AUthenticationFailureHandler
         .failureHandler(failureHandler)
+        .and()
+        .rememberMe()
+        .tokenRepository(persistentTokenRepository())
+        .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+        .userDetailsService(myUserDetailService)
         .and()
         .authorizeRequests()
         .antMatchers("/signIn.html", "/authentication/require", "/authentication/signln.html",
