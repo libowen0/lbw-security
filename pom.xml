@@ -12,11 +12,17 @@
     <lbw.security.version>1.0-SNAPSHOT</lbw.security.version>
   </properties>
 
+  <!--<parent>-->
+    <!--<groupId>org.springframework.boot</groupId>-->
+    <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+    <!--<version>2.0.1.RELEASE</version>-->
+  <!--</parent>-->
   <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.0.1.RELEASE</version>
+    <groupId>io.spring.platform</groupId>
+    <artifactId>platform-bom</artifactId>
+    <version>Cairo-SR4</version>
   </parent>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -27,23 +33,21 @@
         <scope>import</scope>
       </dependency>
 
-      <dependency>
-        <groupId>io.spring.platform</groupId>
-        <artifactId>platform-bom</artifactId>
-        <version>Cairo-SR4</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+      <!--<dependency>-->
+        <!--<groupId>io.spring.platform</groupId>-->
+        <!--<artifactId>platform-bom</artifactId>-->
+        <!--<version>Cairo-SR4</version>-->
+        <!--<type>pom</type>-->
+        <!--<scope>import</scope>-->
+      <!--</dependency>-->
     </dependencies>
   </dependencyManagement>
 
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.2</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
