@@ -62,8 +62,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
     validateCodeFilter.setFailureHandler(failureHandler);
     validateCodeFilter.setSecurityProperties(securityProperties);
-    validateCodeFilter.afterPropertiesSet();
-    // http.httpBasic()
+//    调用会抛出异常 NullPointerException
+//    validateCodeFilter.afterPropertiesSet();
     http
         .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
         .formLogin()
@@ -90,7 +90,5 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         .authenticated()
         .and()
         .csrf().disable();
-
-
   }
 }
