@@ -1,7 +1,7 @@
 ## Spring security 
 
 lbw-security  主模块  
-├─ lbw-security-app app相关特定代码  
+├─ lbw-security-app app 相关特定代码  
 ├─ lbw-security-browser 浏览器安全特定代码  
 ├─ lbw-security-core  核心业务逻辑  
 ├─ lbw-security-demo  样例程序  
@@ -33,3 +33,7 @@ FilterSecurityInterceptor 依据配置来进行放行api
 3. 下一次认证的时候调用 RememberMeAuthenticationFiler 读取Cookie中的Token
 4. 通过TokenRepository查找到用户名，调用UserDetailsService 最后将用户信息存入SecurityContext中 
 
+认证流程源码
+认证处理流程说明
+认证结果如何在多个请求之间共享
+获取认证用户信息

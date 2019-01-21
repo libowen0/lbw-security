@@ -38,6 +38,8 @@ public class UserController {
 
   @GetMapping("/me")
   public Object getCurrentUser(@AuthenticationPrincipal UserDetails userDetails){
+    // @AuthenticationPrincipal 只获取Principal信息
+    SecurityContextHolder.getContext().getAuthentication();
     return userDetails;
   }
 

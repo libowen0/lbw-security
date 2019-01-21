@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Author by lbw , Date on 2018/10/11.
+ * 根据不同请求返回不同返回值
  */
 
 @Slf4j
@@ -36,7 +37,12 @@ public class BrowserSecurityController {
   private SecurityProperties securityProperties;
 
   /**
-   * 当需要身份认证时跳转到这里
+   * 当需要身份认证时跳转到这里，为html后缀结尾的请求跳转到自定义登陆页面
+   * 无后缀请求返回json字符串 401状态码
+   * @param request
+   * @param response
+   * @return
+   * @throws IOException
    */
   @RequestMapping("/authentication/require")
   @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
